@@ -11,14 +11,30 @@ import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * Класс начального запуска игры
+ */
 public class main {
+    /**
+     * функция запуска игры
+     * @param args аргументы командной строки
+     */
     public static void main(String[] args) {
         SwingUtilities.invokeLater(GamePanel::new);
     }
 
+    /**
+     * Панель игры
+     */
     static class GamePanel extends JFrame {
+        /**
+         * игра
+         */
         private Game game;
 
+        /**
+         * Конструктор
+         */
         public GamePanel(){
             setVisible(true);
             startGame();
@@ -32,6 +48,10 @@ public class main {
             addKeyListener( new KeyController() );
         }
 
+        /**
+         * Создать меню игры
+         * @return меню
+         */
         private JMenu createGameMenu() {
             JMenu gameMenu = new JMenu("Игра");
             JMenuItem newGameMenuItem = new JMenuItem(new NewGameAction());
@@ -42,7 +62,6 @@ public class main {
         }
 
         private class NewGameAction extends AbstractAction {
-
             public NewGameAction() {
                 putValue(NAME, "Новая");
             }
@@ -56,7 +75,6 @@ public class main {
         }
 
         private static class ExitAction extends AbstractAction {
-
             public ExitAction() {
                 putValue(NAME, "Выход");
             }
@@ -67,6 +85,9 @@ public class main {
             }
         }
 
+        /**
+         * Начало игры
+         */
         private void startGame() {
             WidgetFactory widgetFactory = new WidgetFactory();
             game = new Game();

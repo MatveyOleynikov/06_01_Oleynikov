@@ -8,26 +8,50 @@ import event.SpiderActionListener;
 import java.util.ArrayList;
 import java.util.Random;
 
-// Паук
+/**
+ * Паук
+ */
 public class Spider extends Arthropod{
-    // ------------------------------- Контроллер ------------------------------------
+    /**
+     * контроллер паука
+     */
     private SpiderActionListener spiderController;
 
+    /**
+     * Установить контроллер паука {@link Spider#spiderController}
+     * @param spiderController контроллер паука
+     */
     public void setSpiderController(SpiderActionListener spiderController){
         this.spiderController = spiderController;
     }
 
-    // ------------------------------- Константы -------------------------------------
+    /**
+     * начальное здоровье паука
+     */
     static final private int beginHealthPoints = 30;
+
+    /**
+     * количество очков здоровья, необходимое для совершения хода
+     */
     static final private int healthPointsForMove = 1;
 
-    // ------------------------------- Очки здоровья ---------------------------------
+    /**
+     * очки здоровья
+     */
     private int _healthPoints;
 
+    /**
+     * Получить очки здоровья {@link Spider#_healthPoints}.
+     * @return очки здоровья.
+     */
     public int healthPoints(){
         return _healthPoints;
     }
 
+    /**
+     * Увеличить количество очков здоровья паука
+     * @param points количество очков здоровья, на которое надо увеличить
+     */
     private void increaseHealthPoints(int points){
         if (_healthPoints + points <= 0){
             _healthPoints = 0;
@@ -36,31 +60,42 @@ public class Spider extends Arthropod{
         }
     }
 
+    /**
+     * Живой ли паук
+     * @return состояние паука
+     */
     public boolean isAlive(){
         return _healthPoints > 0;
     }
 
-    // ----------------------------- Паутина --------------------------------------
-
+    /**
+     * паутина
+     */
     protected final SpiderWeb _spiderWeb;
 
-    // --------------------------- Конструктор ------------------------------------
-
+    /**
+     * Конструктор
+     * @param spiderWeb паутина
+     */
     public Spider(SpiderWeb spiderWeb){
         _healthPoints = beginHealthPoints;
         _spiderWeb = spiderWeb;
     }
 
-    // ----------------------------- Поедание -------------------------------------
-
+    /**
+     * Поедание насекомого
+     * @param insect насекомое
+     */
     private void eat(Insect insect){
         int sizeInsect = insect.size();
         insect.die();
         increaseHealthPoints(sizeInsect);
     }
 
-    // --------------------------- Перемещение ------------------------------------
-
+    /**
+     * Попытка перемещение по направлению
+     * @param direct направление
+     */
     public void tryMove(Direction direct) {
         Zone newZone = _spiderWeb.zone(zone(), direct);
         if (newZone == null){
@@ -88,6 +123,10 @@ public class Spider extends Arthropod{
         }
     }
 
+    /**
+     * Преобразование к строке
+     * @return строка
+     */
     @Override
     public String toString() {
 

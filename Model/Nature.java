@@ -7,17 +7,27 @@ import event.SpiderActionListener;
 
 import java.util.ArrayList;
 
-// Природа
-
+/**
+ * Природа
+ */
 public class Nature{
-    // ---------------------- Контроллеры -----------------------
-
+    /**
+     * контроллер насекомого
+     */
     private InsectActionListener insectController;
 
+    /**
+     * Установить контроллер насекомого {@link Nature#insectController}
+     * @param insectController контроллер насекомого.
+     */
     public void setInsectController(InsectActionListener insectController) {
         this.insectController = insectController;
     }
 
+    /**
+     * Установить контроллер пауков
+     * @param spiderController контроллер паука
+     */
     public void setSpiderController(SpiderActionListener spiderController) {
         player.setSpiderController(spiderController);
         for (Spider spider: enemies()){
@@ -25,40 +35,67 @@ public class Nature{
         }
     }
 
-    // ------------------------------- Константы -------------------------------------
+    /**
+     * размер паутины
+     */
     private final int SIZE_OF_SPIDER_WEB = 5;
+
+    /**
+     * количество пауков соперников
+     */
     private final int NUMBER_OF_SPIDERS = 4;
 
-    // -------------------- Паутина --------------------
+    /**
+     * паутина
+     */
     private SpiderWeb _spiderWeb;
 
+    /**
+     * Получить паутину {@link Nature#_spiderWeb}.
+     * @return паутина.
+     */
     public SpiderWeb spiderWeb(){
         return _spiderWeb;
     }
 
-    // ---------------------- Паук-Игрок ---------------------------
-
+    /**
+     * паук-игрок
+     */
     private final Spider player;
 
+    /**
+     * Получить паука игрока {@link Nature#player}.
+     * @return паук игрока.
+     */
     public Spider player() {
         return player;
     }
 
-    // ---------------------- Пауки-Враги ---------------------------
-
+    /**
+     * пауки-соперники
+     */
     private ArrayList<SmartSpider> enemies = new ArrayList();
 
+    /**
+     * Получить пауков соперников {@link Nature#enemies}.
+     * @return пауки соперники.
+     */
     public ArrayList<SmartSpider> enemies() {
         return enemies;
     }
 
+    /**
+     * Удалить паука соперника
+     * @param spider паук соперника
+     */
     public void deleteEnemySpider(SmartSpider spider) {
         enemies.remove(spider);
         spider.zone().extractArthropod();
     }
 
-    // -------------------- Насекомые ------------------
-
+    /**
+     * Появления насекомых в паутине
+     */
     public void insectsGetCaughtInSpiderWeb(){
         for (int row = 0; row < _spiderWeb.height(); ++row){
             for (int col = 0; col < _spiderWeb.width(); ++col){
@@ -75,6 +112,9 @@ public class Nature{
         }
     }
 
+    /**
+     * Исчезновения насекомых в паутине
+     */
     public void insectsEmergeFromSpiderWeb(){
         for (int row = 0; row < _spiderWeb.height(); ++row){
             for (int col = 0; col < _spiderWeb.width(); ++col){
@@ -92,8 +132,10 @@ public class Nature{
         }
     }
 
-    // ---------------------------- Порождение ---------------------
 
+    /**
+     * Конструктор
+     */
     public Nature() {
         _spiderWeb = new SpiderWeb(SIZE_OF_SPIDER_WEB, SIZE_OF_SPIDER_WEB);
 

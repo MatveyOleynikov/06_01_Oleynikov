@@ -3,25 +3,44 @@ package Model;
 import View.SpiderWebWidget;
 import event.InsectActionListener;
 
-// Насекомое
+/**
+ * Насекомое
+ */
 public class Insect extends Arthropod{
-    // ------------------------------- Размер ---------------------------------
+    /**
+     * размер
+     */
     static private int _size = 5;
 
+    /**
+     * Конструктор
+     */
     public Insect(){
     }
 
+    /**
+     * Получить размер {@link Insect#_size}.
+     * @return размер.
+     */
     public int size(){
         return _size;
     }
 
-    // ----------------------------- Вероятности ------------------------------
 
+    /**
+     * вероятность появления насекомого
+     */
     private static final double probability_appearance_insect = 0.04;
+
+    /**
+     * вероятность исчезновение насекомого
+     */
     private static final double probability_disappearance_insect = 0.2;
 
-    // -------------------------- Появление в зоне -----------------------------
-
+    /**
+     * Вероятное появление насекомого в зоне
+     * @param zone зона
+     */
     public static void probableAppearanceInZone(Zone zone){
         if (!zone.isEmpty()){
             throw new IllegalStateException("Зона уже занята");
@@ -32,6 +51,10 @@ public class Insect extends Arthropod{
         }
     }
 
+    /**
+     * Вероятное исчезновение насекомого
+     * @param insect насекомое
+     */
     public static void probableDisappearance(Insect insect){
         if (insect.zone() == null){
             throw new IllegalStateException("Насекомое не имеет зоны");
@@ -41,10 +64,17 @@ public class Insect extends Arthropod{
         }
     }
 
+    /**
+     * насекомое умерло
+     */
     public void die(){
         _zone.extractArthropod();
     }
 
+    /**
+     * Преобразование к строке
+     * @return строка
+     */
     @Override
     public String toString() {
 

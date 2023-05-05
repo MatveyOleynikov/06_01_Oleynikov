@@ -9,19 +9,41 @@ import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * Игра
+ */
 public class Game {
+    /**
+     * Природа
+     */
     private final Nature _nature;
 
+    /**
+     * Получить природу {@link Game#_nature}.
+     * @return природа.
+     */
     public Nature nature(){
         return _nature;
     }
 
+
+    /**
+     * Паутина
+     */
     private final SpiderWeb _spiderWeb;
 
+    /**
+     * Получить паутину {@link Game#_spiderWeb}.
+     * @return паутина.
+     */
     public SpiderWeb spiderWeb(){
         return _spiderWeb;
     }
 
+    /**
+     * Положить паука в случайную зону паутины
+     * @param spider паук
+     */
     public void putSpiderInRandomZone(Spider spider){
         Random random = new Random();
         Zone zone = _spiderWeb.zone(random.nextInt(_spiderWeb.height()), random.nextInt(_spiderWeb.width()));
@@ -31,6 +53,9 @@ public class Game {
         zone.putArthropod(spider);
     }
 
+    /**
+     * Конструктор
+     */
     public Game() {
         _nature = new Nature();
         _spiderWeb = _nature.spiderWeb();
@@ -42,6 +67,10 @@ public class Game {
         }
     }
 
+    /**
+     * Запустить ходы пауков
+     * @param direct направление хода паука игрока
+     */
     public void runSpidersMoves(Direction direct){
         _nature.player().tryMove(direct);
         if (!_nature.player().isAlive()){
@@ -57,6 +86,9 @@ public class Game {
         }
     }
 
+    /**
+     * Запустить жизнь насекомых
+     */
     public void runInsectLife(){
         _nature.insectsGetCaughtInSpiderWeb();
         _nature.insectsEmergeFromSpiderWeb();

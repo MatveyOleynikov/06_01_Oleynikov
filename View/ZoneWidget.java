@@ -1,20 +1,38 @@
 package View;
 
+import Model.Zone;
+
 import javax.swing.*;
 import java.awt.*;
 
-// Виджет для отрисовки зоны и всего, что на ней располагается
+/**
+ * Виджет зоны {@link Zone}.
+ */
 public class ZoneWidget extends JPanel {
+    /**
+     * Виджет членистоногого
+     */
     private ArthropodWidget arthropodWidget;
 
+
+    /**
+     * Размер зоны
+     */
     private static final int ZONE_SIZE = 120;
 
+    /**
+     * Конструктор
+     */
     public ZoneWidget() {
         setPreferredSize(new Dimension(ZONE_SIZE, ZONE_SIZE));
 
         setBackground(ImageUtils.BACKGROUND_COLOR);
     }
 
+    /**
+     * Установить виджет членистоногого {@link ZoneWidget#arthropodWidget}
+     * @param arthropodWidget виджет членистоногого
+     */
     public void setArthropodWidget(ArthropodWidget arthropodWidget) {
         if (this.arthropodWidget != null){
             remove(this.arthropodWidget);
@@ -25,6 +43,9 @@ public class ZoneWidget extends JPanel {
         repaint();
     }
 
+    /**
+     * Снять виджет насекомого {@link ZoneWidget#arthropodWidget}
+     */
     public void removeArthropodWidget() {
         if (arthropodWidget != null){
             remove(arthropodWidget);
@@ -33,6 +54,10 @@ public class ZoneWidget extends JPanel {
         repaint();
     }
 
+    /**
+     * Нарисовать компонент
+     * @param g the <code>Graphics</code> object to protect
+     */
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);

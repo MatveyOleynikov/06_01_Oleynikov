@@ -5,10 +5,25 @@ import Model.Zone;
 
 import java.util.EventObject;
 
+/**
+ * Объект собтыия класса насекомого {@link Insect}.
+ */
 public class InsectActionEvent extends EventObject {
+
+    /**
+     * насекомое
+     */
     private Insect insect;
+
+    /**
+     * зона
+     */
     private Zone zone;
 
+    /**
+     * Получить зону {@link InsectActionEvent#zone}.
+     * @return зона.
+     */
     public Zone getZone() {
         return zone;
     }

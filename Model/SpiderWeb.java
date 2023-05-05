@@ -4,28 +4,48 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Queue;
 
-// Паутина
+/**
+ * Паутина
+ */
 public class SpiderWeb{
-    // ---------------------- Размеры -----------------------------
+    /**
+     * высота
+     */
     private final int _height;
+
+    /**
+     * ширина
+     */
     private final int _width;
 
+    /**
+     * Получить высоту {@link SpiderWeb#_height}.
+     * @return высота.
+     */
     public int height() {
         return _height;
     }
 
+    /**
+     * Получить ширину {@link SpiderWeb#_width}.
+     * @return ширина.
+     */
     public int width() {
         return _width;
     }
 
-    // --------------------------- Ячейки ----------------------
 
+    /**
+     * зоны
+     */
     private final ArrayList<ArrayList<Zone>> _zones = new ArrayList<>();
 
-    public ArrayList<ArrayList<Zone>> zones(){
-        return _zones;
-    }
-
+    /**
+     * Получение зоны по расположению
+     * @param row строка
+     * @param col столбец
+     * @return зона
+     */
     public Zone zone(int row, int col) {
         if (row < 0 || col < 0 || row >= height() || col >= width()){
             return null;
@@ -33,8 +53,11 @@ public class SpiderWeb{
         return _zones.get(row).get(col);
     }
 
-    // ---------------------------- Порождение ---------------------
-
+    /**
+     * Конструктор
+     * @param height высота
+     * @param width ширина
+     */
     public SpiderWeb(int height, int width) {
         if (width <= 0 || height <= 0) {
             throw new IllegalArgumentException();
@@ -46,6 +69,9 @@ public class SpiderWeb{
         buildSpiderWeb();
     }
 
+    /**
+     * Построение паутины
+     */
     private void buildSpiderWeb() {
         // Создаем ячейки
         for (int row = 0; row < height(); row++) {
@@ -56,6 +82,13 @@ public class SpiderWeb{
         }
     }
 
+    /**
+     * Добавление не добавленной ранее зоны в очередь
+     * @param queue очередь
+     * @param visited список добавленных ранее зон
+     * @param row строка
+     * @param col столбец
+     */
     private void addZone(ArrayDeque<Zone> queue, ArrayList<Zone> visited, int row, int col){
         if (zone(row, col) != null && !visited.contains(zone(row, col))){
             queue.addLast(zone(row, col));
@@ -63,6 +96,11 @@ public class SpiderWeb{
         }
     }
 
+    /**
+     * Ближайшая зона с насекомым
+     * @param zone начальная зона
+     * @return зона
+     */
     public Zone nearestInsectZone(Zone zone){
 
         ArrayDeque<Zone> queue = new ArrayDeque<Zone>();
@@ -87,6 +125,12 @@ public class SpiderWeb{
         return null;
     }
 
+    /**
+     * Зона по направлению
+     * @param zone начальная зона
+     * @param direct направление
+     * @return зона
+     */
     public Zone zone(Zone zone, Direction direct) {
         int row = zone.row();
         int col = zone.col();

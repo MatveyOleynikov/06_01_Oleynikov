@@ -8,10 +8,26 @@ import event.SpiderActionListener;
 
 import javax.swing.*;
 
+/**
+ * Виджет паутины {@link SpiderWeb}.
+ */
 public class SpiderWebWidget extends JPanel {
+    /**
+     * паутина
+     */
     private final SpiderWeb spiderWeb;
+
+    /**
+     * фабрика виджетов
+     */
     private final WidgetFactory widgetFactory;
 
+    /**
+     * Конструктор
+     * @param nature природа
+     * @param spiderWeb паутина
+     * @param widgetFactory фабрика виджетов
+     */
     public SpiderWebWidget(Nature nature, SpiderWeb spiderWeb, WidgetFactory widgetFactory) {
         nature.setInsectController(new InsectController());
         nature.setSpiderController(new SpiderController());
@@ -21,6 +37,9 @@ public class SpiderWebWidget extends JPanel {
         fillField();
     }
 
+    /**
+     * Заполнить поле
+     */
     private void fillField() {
         for (int i = 0; i < spiderWeb.height(); ++i) {
             JPanel row = createRow(i);
@@ -28,6 +47,11 @@ public class SpiderWebWidget extends JPanel {
         }
     }
 
+    /**
+     * Создать строку
+     * @param rowIndex номер строки
+     * @return панель
+     */
     private JPanel createRow(int rowIndex) {
         JPanel row = new JPanel();
         row.setLayout(new BoxLayout(row, BoxLayout.X_AXIS));
@@ -41,7 +65,14 @@ public class SpiderWebWidget extends JPanel {
         return row;
     }
 
+    /**
+     * Контроллер насекомого
+     */
     public class InsectController implements InsectActionListener {
+        /**
+         * Насекомое появилось
+         * @param event событие насекомого
+         */
         @Override
         public void insectAppearance(InsectActionEvent event) {
             InsectWidget insectWidget = (InsectWidget) widgetFactory.createArthropodWidget(event.getZone().getArthropod());
@@ -49,15 +80,25 @@ public class SpiderWebWidget extends JPanel {
             zoneWidget.setArthropodWidget(insectWidget);
         }
 
+        /**
+         * Насекомое исчезло
+         * @param event событие насекомого
+         */
         @Override
         public void insectDisappearance(InsectActionEvent event) {
-            //todo: удалить инсекта из мапы
             ZoneWidget zoneWidget = widgetFactory.getZones().get(event.getZone());
             zoneWidget.removeArthropodWidget();
         }
     }
 
+    /**
+     * Контроллер паука
+     */
     public class SpiderController implements SpiderActionListener {
+        /**
+         * Паук перемещён
+         * @param event событие паука
+         */
         @Override
         public void SpiderMoved(SpiderActionEvent event) {
             ZoneWidget zone = widgetFactory.getZones().get(event.getZone());
@@ -66,6 +107,10 @@ public class SpiderWebWidget extends JPanel {
             nextZone.setArthropodWidget(widgetFactory.getArthropods().get(event.getSpider()));
         }
 
+        /**
+         * Паук умер
+         * @param event событие паука
+         */
         @Override
         public void SpiderDied(SpiderActionEvent event) {
             if (!(event.getSpider() instanceof SmartSpider)){

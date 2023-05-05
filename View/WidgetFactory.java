@@ -5,18 +5,41 @@ import Model.*;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Фабрика виджетов
+ */
 public class WidgetFactory {
+    /**
+     * зоны
+     */
     private final Map<Zone, ZoneWidget> zones = new HashMap<>();
 
+    /**
+     * Получить зоны {@link WidgetFactory#zones}.
+     * @return зоны.
+     */
     public Map<Zone, ZoneWidget> getZones(){
         return zones;
     }
+
+    /**
+     * членистоногие
+     */
     private final Map<Arthropod, ArthropodWidget> arthropods = new HashMap<>();
 
+    /**
+     * Получить членистоногих {@link WidgetFactory#arthropods}.
+     * @return членистоногие.
+     */
     public Map<Arthropod, ArthropodWidget> getArthropods(){
         return arthropods;
     }
 
+    /**
+     * Создать виджет зоны
+     * @param zone зона
+     * @return виджет зоны
+     */
     public ZoneWidget createZoneWidget(Zone zone) {
         if(zones.containsKey(zone)) return zones.get(zone);
 
@@ -32,6 +55,11 @@ public class WidgetFactory {
         return zoneWidget;
     }
 
+    /**
+     * создать виджет членистоногого
+     * @param arthropod членистоногое
+     * @return виджет членистоногого
+     */
     public ArthropodWidget createArthropodWidget(Arthropod arthropod) {
         ArthropodWidget createdWidget = null;
 

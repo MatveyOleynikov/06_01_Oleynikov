@@ -3,12 +3,22 @@ package Model;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * Паук соперника (умный паук, так как умеет определять оптимальное направление)
+ */
 public class SmartSpider extends Spider{
+    /**
+     * Конструктор
+     * @param spiderWeb паутина
+     */
     public SmartSpider(SpiderWeb spiderWeb) {
         super(spiderWeb);
     }
 
-    // ----------------- Определение оптимального направления ----------------------
+    /**
+     * Определение оптимального направления
+     * @return направление
+     */
     public Direction determineOptimalDirection() {
         Zone nearestInsectZone = _spiderWeb.nearestInsectZone(zone());
 
