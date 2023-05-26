@@ -104,8 +104,10 @@ public class Nature{
                     Insect.probableAppearanceInZone(zn);
 
                     if (!zn.isEmpty()){
-                        InsectActionEvent event = new InsectActionEvent(insectController, (Insect) zn.getArthropod(), zn);
-                        insectController.insectAppearance(event);
+                        if (insectController != null) {
+                            InsectActionEvent event = new InsectActionEvent(insectController, (Insect) zn.getArthropod(), zn);
+                            insectController.insectAppearance(event);
+                        }
                     }
                 }
             }
@@ -124,8 +126,10 @@ public class Nature{
                     Insect.probableDisappearance(insect);
 
                     if (zn.isEmpty()){
-                        InsectActionEvent event = new InsectActionEvent(insectController, insect, zn);
-                        insectController.insectDisappearance(event);
+                        if (insectController != null) {
+                            InsectActionEvent event = new InsectActionEvent(insectController, insect, zn);
+                            insectController.insectDisappearance(event);
+                        }
                     }
                 }
             }

@@ -116,10 +116,12 @@ public class Spider extends Arthropod{
         newZone.putArthropod(this);
         increaseHealthPoints(-healthPointsForMove);
 
-        if (isAlive()){
-            spiderController.SpiderMoved(new SpiderActionEvent(spiderController, this, curZone, newZone));
-        }   else{
-            spiderController.SpiderDied(new SpiderActionEvent(spiderController, this, curZone));
+        if (spiderController != null) {
+            if (isAlive()) {
+                spiderController.SpiderMoved(new SpiderActionEvent(spiderController, this, curZone, newZone));
+            } else {
+                spiderController.SpiderDied(new SpiderActionEvent(spiderController, this, curZone));
+            }
         }
     }
 
