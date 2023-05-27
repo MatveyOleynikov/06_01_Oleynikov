@@ -10,7 +10,7 @@ public class Insect extends Arthropod{
     /**
      * размер
      */
-    static private int _size = 5;
+    protected int _size = 5;
 
     /**
      * Конструктор
@@ -43,7 +43,7 @@ public class Insect extends Arthropod{
      */
     public static void probableAppearanceInZone(Zone zone){
         if (!zone.isEmpty()){
-            throw new IllegalStateException("Зона уже занята");
+            return;
         }
         if (Math.random() < probability_appearance_insect){
             Insect insect = new Insect();
@@ -53,14 +53,13 @@ public class Insect extends Arthropod{
 
     /**
      * Вероятное исчезновение насекомого
-     * @param insect насекомое
      */
-    public static void probableDisappearance(Insect insect){
-        if (insect.zone() == null){
+    public void probableDisappearance(){
+        if (this.zone() == null){
             throw new IllegalStateException("Насекомое не имеет зоны");
         }
         if (Math.random() < probability_disappearance_insect){
-            insect.zone().extractArthropod();
+            this.zone().extractArthropod();
         }
     }
 

@@ -52,7 +52,7 @@ public class Spider extends Arthropod{
      * Увеличить количество очков здоровья паука
      * @param points количество очков здоровья, на которое надо увеличить
      */
-    private void increaseHealthPoints(int points){
+    public void increaseHealthPoints(int points){
         if (_healthPoints + points <= 0){
             _healthPoints = 0;
         }   else{
@@ -109,17 +109,32 @@ public class Spider extends Arthropod{
         Zone curZone = zone();
 
         if (newZone.getArthropod() instanceof Insect){
-            eat((Insect) newZone.getArthropod());
+            if (newZone.getArthropod() instanceof Wasp){
+                ((Wasp) newZone.getArthropod()).probableBite(this);
+
+                if (!isAlive()){
+                    return;
+                }
+            }
+            if (newZone.getArthropod() instanceof Grasshopper){
+                ((Grasshopper) newZone.getArthropod()).probableJumpNeighboringZoneWithoutArthropod();
+            }
+
+            if (newZone.getArthropod() instanceof Insect) {
+                eat((Insect) newZone.getArthropod());
+            }
         }
 
         curZone.extractArthropod();
         newZone.putArthropod(this);
         increaseHealthPoints(-healthPointsForMove);
 
-        if (spiderController != null) {
-            if (isAlive()) {
+        if (isAlive()){
+            if (spiderController != null) {
                 spiderController.SpiderMoved(new SpiderActionEvent(spiderController, this, curZone, newZone));
-            } else {
+            }
+        }   else{
+            if (spiderController != null) {
                 spiderController.SpiderDied(new SpiderActionEvent(spiderController, this, curZone));
             }
         }

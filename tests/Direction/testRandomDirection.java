@@ -1,8 +1,6 @@
 package tests.Direction;
 
 import Model.Direction;
-import Model.Insect;
-import Model.Zone;
 import org.junit.Assert;
 import org.junit.Test;
 

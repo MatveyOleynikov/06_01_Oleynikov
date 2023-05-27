@@ -101,7 +101,10 @@ public class Nature{
             for (int col = 0; col < _spiderWeb.width(); ++col){
                 if (_spiderWeb.zone(row, col).isEmpty()){
                     Zone zn = _spiderWeb.zone(row, col);
-                    Insect.probableAppearanceInZone(zn);
+                    Wasp.probableAppearanceInZone(zn);
+                    Grasshopper.probableAppearanceInZone(zn, spiderWeb());
+                    Fly.probableAppearanceInZone(zn);
+                    Mosquito.probableAppearanceInZone(zn);
 
                     if (!zn.isEmpty()){
                         if (insectController != null) {
@@ -123,7 +126,7 @@ public class Nature{
                 if (_spiderWeb.zone(row, col).getArthropod() instanceof Insect){
                     Zone zn = _spiderWeb.zone(row, col);
                     Insect insect = (Insect) zn.getArthropod();
-                    Insect.probableDisappearance(insect);
+                    insect.probableDisappearance();
 
                     if (zn.isEmpty()){
                         if (insectController != null) {

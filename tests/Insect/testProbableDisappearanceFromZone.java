@@ -16,7 +16,7 @@ public class testProbableDisappearanceFromZone {
         Insect insect = new Insect();
 
         String expMessage = "Насекомое не имеет зоны";
-        Throwable thrown = assertThrows(IllegalStateException.class, () -> Insect.probableDisappearance(insect));
+        Throwable thrown = assertThrows(IllegalStateException.class, () -> insect.probableDisappearance());
 
         Assert.assertEquals(expMessage, thrown.getMessage());
     }
@@ -26,7 +26,7 @@ public class testProbableDisappearanceFromZone {
         Insect insect = new Insect();
         Zone zone = new Zone(1, 1);
         zone.putArthropod(insect);
-        Insect.probableDisappearance(insect);
+        insect.probableDisappearance();
     }
 
     @Test
@@ -36,7 +36,7 @@ public class testProbableDisappearanceFromZone {
 
         do{
             zone.putArthropod(insect);
-            Insect.probableDisappearance(insect);
+            insect.probableDisappearance();
         }   while (zone.isEmpty());
 
         Assert.assertTrue(zone.getArthropod() instanceof Insect);
@@ -49,7 +49,7 @@ public class testProbableDisappearanceFromZone {
 
         do{
             zone.putArthropod(insect);
-            Insect.probableDisappearance(insect);
+            insect.probableDisappearance();
         }   while (!zone.isEmpty());
 
         Assert.assertNull(zone.getArthropod());
@@ -67,7 +67,7 @@ public class testProbableDisappearanceFromZone {
 
             ++denominator;
 
-            Insect.probableDisappearance(insect);
+            insect.probableDisappearance();
             if (zone.isEmpty()){
                 ++numerator;
                 zone.extractArthropod();

@@ -23,10 +23,6 @@ public class testProbableAppearanceInZone {
         Zone zone = new Zone(1, 1);
         zone.putArthropod(spider);
 
-        String expMessage = "Зона уже занята";
-        Throwable thrown = assertThrows(IllegalStateException.class, () -> Insect.probableAppearanceInZone(zone));
-
-        Assert.assertEquals(expMessage, thrown.getMessage());
         Assert.assertEquals(spider, zone.getArthropod());
     }
 
@@ -36,10 +32,6 @@ public class testProbableAppearanceInZone {
         Zone zone = new Zone(1, 1);
         zone.putArthropod(insect);
 
-        String expMessage = "Зона уже занята";
-        Throwable thrown = assertThrows(IllegalStateException.class, () -> Insect.probableAppearanceInZone(zone));
-
-        Assert.assertEquals(expMessage, thrown.getMessage());
         Assert.assertEquals(insect, zone.getArthropod());
     }
 
