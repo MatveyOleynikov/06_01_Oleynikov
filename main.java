@@ -128,8 +128,7 @@ public class main {
                     return;
                 }
 
-                game.runInsectLife();
-                game.runSpidersMoves(direct);
+                game.move(direct);
             }
 
             @Override
