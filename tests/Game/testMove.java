@@ -4,7 +4,7 @@ import Model.*;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class testRunSpidersMoves {
+public class testMove {
     @Test
     public void north(){
         Game game = new Game();
@@ -15,8 +15,9 @@ public class testRunSpidersMoves {
 
         int row = zone.row();
         int col = zone.col();
-
-        game.runSpidersMoves(Direction.north());
+        try {
+            game.move(Direction.north());
+        }   catch (IllegalArgumentException exception){}
 
         Assert.assertTrue(spider.zone() == game.spiderWeb().zone(row, col) || spider.zone() == game.spiderWeb().zone(row - 1, col));
     }
@@ -33,7 +34,9 @@ public class testRunSpidersMoves {
         int row = zone.row();
         int col = zone.col();
 
-        game.runSpidersMoves(Direction.south());
+        try {
+            game.move(Direction.south());
+        }   catch (IllegalArgumentException exception){}
 
         Assert.assertTrue(spider.zone() == game.spiderWeb().zone(row, col) || spider.zone() == game.spiderWeb().zone(row + 1, col));
     }
@@ -49,7 +52,9 @@ public class testRunSpidersMoves {
         int row = zone.row();
         int col = zone.col();
 
-        game.runSpidersMoves(Direction.west());
+        try {
+            game.move(Direction.west());
+        }   catch (IllegalArgumentException exception){}
 
         Assert.assertTrue(spider.zone() == game.spiderWeb().zone(row, col) || spider.zone() == game.spiderWeb().zone(row, col - 1));
     }
@@ -66,7 +71,9 @@ public class testRunSpidersMoves {
         int row = zone.row();
         int col = zone.col();
 
-        game.runSpidersMoves(Direction.east());
+        try {
+            game.move(Direction.east());
+        }   catch (IllegalArgumentException exception){}
 
         Assert.assertTrue(spider.zone() == game.spiderWeb().zone(row, col) || spider.zone() == game.spiderWeb().zone(row, col + 1));
     }
@@ -80,7 +87,9 @@ public class testRunSpidersMoves {
         Zone zone = spider.zone();
 
         while (zone == spider.zone()){
-            game.runSpidersMoves(Direction.north());
+            try {
+                game.move(Direction.randomDirection());
+            }   catch (IllegalArgumentException exception){}
         }
     }
 
@@ -93,7 +102,10 @@ public class testRunSpidersMoves {
         Zone zone = spider.zone();
 
         while (spider.zone() != null){
-            game.runSpidersMoves(Direction.north());
+            try {
+                game.move(Direction.randomDirection());
+                spider.increaseHealthPoints(-spider.getPositiveChange());
+            }   catch (IllegalArgumentException exception){}
         }
     }
 }

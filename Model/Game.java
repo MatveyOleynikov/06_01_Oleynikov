@@ -9,6 +9,8 @@ import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.Random;
 
+import static java.lang.Thread.sleep;
+
 /**
  * Игра
  */
@@ -17,6 +19,19 @@ public class Game {
      * Природа
      */
     private final Nature _nature;
+
+    /**
+     * Количество ходов
+     */
+    private int steps = 0;
+
+    /**
+     * Получить количество ходов {@link Game#steps}.
+     * @return количество ходов.
+     */
+    public int getSteps(){
+        return steps;
+    }
 
     /**
      * Получить природу {@link Game#_nature}.
@@ -44,12 +59,12 @@ public class Game {
      * Положить паука в случайную зону паутины
      * @param spider паук
      */
-    public void putSpiderInRandomZone(Spider spider){
+    private void putSpiderInRandomZone(Spider spider){
         Random random = new Random();
-        Zone zone = _spiderWeb.zone(random.nextInt(_spiderWeb.height()), random.nextInt(_spiderWeb.width()));
-        while (!zone.isEmpty()){
+        Zone zone;
+        do{
             zone = _spiderWeb.zone(random.nextInt(_spiderWeb.height()), random.nextInt(_spiderWeb.width()));
-        }
+        }   while (!zone.isEmpty());
         zone.putArthropod(spider);
     }
 
@@ -71,26 +86,38 @@ public class Game {
      * Запустить ходы пауков
      * @param direct направление хода паука игрока
      */
-    public void runSpidersMoves(Direction direct){
-        _nature.player().tryMove(direct);
-        if (!_nature.player().isAlive()){
-            //todo: закончить игру
+    private void runSpidersMoves(Direction direct){
+        Zone newPlayerZone = _spiderWeb.zone(_nature.player().zone(), direct);
+
+        if (newPlayerZone == null || newPlayerZone.getArthropod() instanceof Spider){
+            throw new IllegalArgumentException();
         }
 
-        ArrayList<SmartSpider> enemies = _nature.enemies();
-        for (int i = enemies.size() - 1; i >= 0; --i){
-            enemies.get(i).tryMove(enemies.get(i).determineOptimalDirection());
-            if (!enemies.get(i).isAlive()){
-                _nature.deleteEnemySpider(enemies.get(i));
+        _nature.player().tryMove(direct);
+
+        do {
+            ArrayList<SmartSpider> enemies = _nature.enemies();
+            for (int i = enemies.size() - 1; i >= 0; --i) {
+                enemies.get(i).tryMove(enemies.get(i).determineOptimalDirection());
+                if (!enemies.get(i).isAlive()) {
+                    _nature.deleteEnemySpider(enemies.get(i));
+                }
             }
-        }
+        } while (_spiderWeb.neighbouringZoneWithoutInsect(newPlayerZone) == null);
+
+        steps++;
     }
 
     /**
      * Запустить жизнь насекомых
      */
-    public void runInsectLife(){
+    private void runInsectLife(){
         _nature.insectsGetCaughtInSpiderWeb();
         _nature.insectsEmergeFromSpiderWeb();
+    }
+
+    public void move(Direction direct){
+        runSpidersMoves(direct);
+        runInsectLife();
     }
 }

@@ -1,15 +1,32 @@
 package Model;
 
+import event.InsectActionEvent;
+import event.InsectActionListener;
+
 /**
  * Кузнечик
  */
 public class Grasshopper extends Insect{
     final SpiderWeb spiderWeb;
-    public Grasshopper(SpiderWeb spiderWeb){
+
+    /**
+     * конструктор с контроллером
+     */
+    public Grasshopper(SpiderWeb spiderWeb, InsectActionListener insectController, Zone zone){
+        this.insectController = insectController;
+        zone.putArthropod(this);
+        appear();
         this.spiderWeb = spiderWeb;
         _size = 10;
     }
 
+    /**
+     * конструктор без контроллера
+     */
+    public Grasshopper(SpiderWeb spiderWeb){
+        this.spiderWeb = spiderWeb;
+        _size = 10;
+    }
     /**
      * вероятность появления кузнечика
      */
@@ -29,13 +46,12 @@ public class Grasshopper extends Insect{
      * Вероятное появление кузнечика в зоне
      * @param zone зона
      */
-    public static void probableAppearanceInZone(Zone zone, SpiderWeb spiderWeb){
+    public static void probableAppearanceInZone(Zone zone, SpiderWeb spiderWeb, InsectActionListener insectController){
         if (!zone.isEmpty()){
             return;
         }
         if (Math.random() < probability_appearance_insect){
-            Insect insect = new Grasshopper(spiderWeb);
-            zone.putArthropod(insect);
+            Grasshopper grasshopper = new Grasshopper(spiderWeb, insectController, zone);
         }
     }
 
@@ -48,6 +64,7 @@ public class Grasshopper extends Insect{
         }
         if (Math.random() < probability_disappearance_insect){
             this.zone().extractArthropod();
+            disappear();
         }
     }
 
@@ -57,33 +74,12 @@ public class Grasshopper extends Insect{
     public void probableJumpNeighboringZoneWithoutArthropod(){
         if (Math.random() < probability_jump) {
             probability_jump /= 2;
-            Zone zoneNorth = spiderWeb.zone(zone(), Direction.north());
-            if (zoneNorth != null && zoneNorth.getArthropod() == null) {
+            Zone neighbouringZoneWithoutInsect = spiderWeb.neighbouringZoneWithoutInsect(zone());
+            if (neighbouringZoneWithoutInsect != null) {
                 zone().extractArthropod();
-                zoneNorth.putArthropod(this);
-                return;
-            }
-
-            Zone zoneSouth = spiderWeb.zone(zone(), Direction.south());
-            if (zoneSouth != null && zoneSouth.getArthropod() == null) {
-                zone().extractArthropod();
-                zoneSouth.putArthropod(this);
-                return;
-            }
-
-            Zone zoneEast = spiderWeb.zone(zone(), Direction.east());
-            if (zoneEast != null && zoneEast.getArthropod() == null) {
-                zone().extractArthropod();
-                zoneEast.putArthropod(this);
-                return;
-            }
-
-
-            Zone zoneWest = spiderWeb.zone(zone(), Direction.west());
-            if (zoneWest != null && zoneWest.getArthropod() == null) {
-                zone().extractArthropod();
-                zoneWest.putArthropod(this);
-                return;
+                disappear();
+                neighbouringZoneWithoutInsect.putArthropod(this);
+                appear();
             }
         }
     }

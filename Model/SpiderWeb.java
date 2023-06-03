@@ -152,4 +152,23 @@ public class SpiderWeb{
 
         return zone(row, col);
     }
+
+
+    /**
+     * Получение соседней зоны без насекомого
+     * @param zone зона
+     * @return соседняя зона
+     */
+    public Zone neighbouringZoneWithoutInsect(Zone zone){
+        ArrayList<Direction> directions = Direction.getAllDirections();
+
+        for (Direction direction: directions){
+            Zone zoneDirection = zone(zone, direction);
+            if (zoneDirection != null && zoneDirection.getArthropod() == null) {
+                return zoneDirection;
+            }
+        }
+
+        return null;
+    }
 }

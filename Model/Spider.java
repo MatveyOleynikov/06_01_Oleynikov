@@ -49,10 +49,42 @@ public class Spider extends Arthropod{
     }
 
     /**
+     * негативное изменение
+     */
+    private int negativeChange = 0;
+
+    /**
+     * Получить негативное изменение {@link Spider#negativeChange}.
+     * @return негативное изменение
+     */
+    public int getNegativeChange(){
+        return negativeChange;
+    }
+
+    /**
+     * позитивное изменение
+     */
+    private int positiveChange = 0;
+
+    /**
+     * Получить позитивное изменение {@link Spider#positiveChange}.
+     * @return позитивное изменение
+     */
+    public int getPositiveChange(){
+        return positiveChange;
+    }
+
+    /**
      * Увеличить количество очков здоровья паука
      * @param points количество очков здоровья, на которое надо увеличить
      */
     public void increaseHealthPoints(int points){
+        if (points > 0){
+            positiveChange += points;
+        }   else{
+            negativeChange += points;
+        }
+
         if (_healthPoints + points <= 0){
             _healthPoints = 0;
         }   else{
@@ -97,6 +129,9 @@ public class Spider extends Arthropod{
      * @param direct направление
      */
     public void tryMove(Direction direct) {
+        negativeChange = 0;
+        positiveChange = 0;
+
         Zone newZone = _spiderWeb.zone(zone(), direct);
         if (newZone == null){
             return;

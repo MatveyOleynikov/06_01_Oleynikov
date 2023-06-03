@@ -17,7 +17,7 @@ public class testProbableAppearanceInZone {
         SpiderWeb spiderWeb = new SpiderWeb(5, 5);
         for (int i = 0; i < 1000000; ++i){
             ++denominator;
-            Grasshopper.probableAppearanceInZone(zone, spiderWeb);
+            Grasshopper.probableAppearanceInZone(zone, spiderWeb, null);
             if (!zone.isEmpty()){
                 ++numerator;
                 zone.extractArthropod();

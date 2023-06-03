@@ -1,6 +1,7 @@
 package View;
 
 import Model.Insect;
+import Model.Wasp;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -8,21 +9,13 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-/**
- * Виджет насекомого {@link Insect}.
- */
-public class InsectWidget extends ArthropodWidget{
-    /**
-     * насекомое
-     */
-    private final Insect insect;
-
+public class WaspWidget extends InsectWidget {
     /**
      * Конструктор
-     * @param insect насекомое
+     * @param wasp оса
      */
-    public InsectWidget(Insect insect){
-        this.insect = insect;
+    public WaspWidget(Wasp wasp) {
+        super(wasp);
     }
 
     /**
@@ -30,7 +23,7 @@ public class InsectWidget extends ArthropodWidget{
      * @return файл
      */
     private File getImageFile() {
-        File file = new File(ImageUtils.IMAGE_PATH + "insect.png");
+        File file = new File(ImageUtils.IMAGE_PATH + "wasp.png");
         return file;
     }
 
@@ -43,20 +36,11 @@ public class InsectWidget extends ArthropodWidget{
         BufferedImage image = null;
         try {
             image = ImageIO.read(getImageFile());
-            image = ImageUtils.resizeImage(image, 40, 40);
+            image = ImageUtils.resizeImage(image, 70, 70);
         } catch (IOException e) {
             e.printStackTrace();
         }
         return image;
-    }
-
-    /**
-     * Получить размеры виджета
-     * @return размеры виджета
-     */
-    @Override
-    protected Dimension getDimension() {
-        return new Dimension(110, 110);
     }
 
     /**
@@ -65,6 +49,6 @@ public class InsectWidget extends ArthropodWidget{
      */
     @Override
     protected void paintComponent(Graphics g) {
-        g.drawImage(getImage(), 35, 35, 40, 40, null);
+        g.drawImage(getImage(), 35, 35, 70, 70, null);
     }
 }

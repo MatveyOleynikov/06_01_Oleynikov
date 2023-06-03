@@ -67,9 +67,17 @@ public class WidgetFactory {
             createdWidget = new SmartSpiderWidget((SmartSpider) arthropod);
         } else if(arthropod instanceof Spider) {
             createdWidget = new SpiderWidget((Spider) arthropod);
-        } else if(arthropod instanceof Insect) {
+        } else if(arthropod instanceof Wasp) {
+            createdWidget = new WaspWidget((Wasp) arthropod);
+        } else if (arthropod instanceof Grasshopper) {
+            createdWidget = new GrasshopperWidget((Grasshopper) arthropod);
+        } else if (arthropod instanceof Mosquito) {
+            createdWidget = new MosquitoWidget((Mosquito) arthropod);
+        } else if (arthropod instanceof Fly) {
+            createdWidget = new FlyWidget((Fly) arthropod);
+        } else if (arthropod instanceof Insect) {
             createdWidget = new InsectWidget((Insect) arthropod);
-        } else {
+        } else{
             throw new IllegalArgumentException();
         }
 

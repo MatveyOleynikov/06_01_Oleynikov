@@ -13,7 +13,7 @@ public class testProbableAppearanceInZone {
     @Test
     public void zoneEmpty(){
         Zone zone = new Zone(1, 1);
-        Insect.probableAppearanceInZone(zone);
+        Insect.probableAppearanceInZone(zone, null);
     }
 
     @Test
@@ -39,7 +39,7 @@ public class testProbableAppearanceInZone {
     public void waitInsect(){
         Zone zone = new Zone(1, 1);
         while (zone.isEmpty()){
-            Insect.probableAppearanceInZone(zone);
+            Insect.probableAppearanceInZone(zone, null);
         }
         Assert.assertTrue(zone.getArthropod() instanceof Insect);
     }
@@ -47,11 +47,11 @@ public class testProbableAppearanceInZone {
     @Test
     public void waitNull(){
         Zone zone = new Zone(1, 1);
-        Insect.probableAppearanceInZone(zone);
+        Insect.probableAppearanceInZone(zone, null);
 
         while (zone.getArthropod() != null){
             zone.extractArthropod();
-            Insect.probableAppearanceInZone(zone);
+            Insect.probableAppearanceInZone(zone, null);
         }
         Assert.assertNull(zone.getArthropod());
     }
@@ -64,7 +64,7 @@ public class testProbableAppearanceInZone {
 
         for (int i = 0; i < 1000000; ++i){
             ++denominator;
-            Insect.probableAppearanceInZone(zone);
+            Insect.probableAppearanceInZone(zone, null);
             if (!zone.isEmpty()){
                 ++numerator;
                 zone.extractArthropod();

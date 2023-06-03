@@ -1,6 +1,7 @@
 package Model;
 
 import View.SpiderWebWidget;
+import event.InsectActionEvent;
 import event.InsectActionListener;
 
 /**
@@ -13,7 +14,42 @@ public class Insect extends Arthropod{
     protected int _size = 5;
 
     /**
-     * Конструктор
+     * контроллер насекомого
+     */
+    protected InsectActionListener insectController;
+
+    /**
+     * Конструктор с контроллером
+     */
+    public Insect(InsectActionListener insectController, Zone zone){
+        this.insectController = insectController;
+        zone.putArthropod(this);
+        appear();
+    }
+
+    /**
+     * Исчезновение
+     */
+    protected void disappear(){
+        if (insectController != null) {
+            InsectActionEvent event = new InsectActionEvent(insectController, this, this.zone());
+            insectController.insectDisappearance(event);
+        }
+    }
+
+    /**
+     * Появление
+     */
+
+    protected void appear(){
+        if (insectController != null) {
+            InsectActionEvent event = new InsectActionEvent(insectController, this, this.zone());
+            insectController.insectAppearance(event);
+        }
+    }
+
+    /**
+     * Конструктор без контроллера
      */
     public Insect(){
     }
@@ -41,13 +77,12 @@ public class Insect extends Arthropod{
      * Вероятное появление насекомого в зоне
      * @param zone зона
      */
-    public static void probableAppearanceInZone(Zone zone){
+    public static void probableAppearanceInZone(Zone zone, InsectActionListener insectController){
         if (!zone.isEmpty()){
             return;
         }
         if (Math.random() < probability_appearance_insect){
-            Insect insect = new Insect();
-            zone.putArthropod(insect);
+            Insect insect = new Insect(insectController, zone);
         }
     }
 
@@ -60,6 +95,7 @@ public class Insect extends Arthropod{
         }
         if (Math.random() < probability_disappearance_insect){
             this.zone().extractArthropod();
+            disappear();
         }
     }
 

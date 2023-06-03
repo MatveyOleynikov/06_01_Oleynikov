@@ -16,7 +16,7 @@ public class testProbableAppearanceInZone {
 
         for (int i = 0; i < 1000000; ++i){
             ++denominator;
-            Wasp.probableAppearanceInZone(zone);
+            Wasp.probableAppearanceInZone(zone, null);
             if (!zone.isEmpty()){
                 ++numerator;
                 zone.extractArthropod();

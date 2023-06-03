@@ -15,7 +15,7 @@ public class testProbableAppearanceInZone {
 
         for (int i = 0; i < 1000000; ++i){
             ++denominator;
-            Fly.probableAppearanceInZone(zone);
+            Fly.probableAppearanceInZone(zone, null);
             if (!zone.isEmpty()){
                 ++numerator;
                 zone.extractArthropod();

@@ -1,11 +1,24 @@
 package Model;
 
+import event.InsectActionEvent;
+import event.InsectActionListener;
+
 /**
  * Муха
  */
 public class Fly extends Insect{
     /**
-     * конструктор
+     * конструктор с контроллером
+     */
+    public Fly(InsectActionListener insectController, Zone zone){
+        this.insectController = insectController;
+        zone.putArthropod(this);
+        appear();
+        _size = 5;
+    }
+
+    /**
+     * конструктор без контроллера
      */
     public Fly(){
         _size = 5;
@@ -25,13 +38,12 @@ public class Fly extends Insect{
      * Вероятное появление мухи в зоне
      * @param zone зона
      */
-    public static void probableAppearanceInZone(Zone zone){
+    public static void probableAppearanceInZone(Zone zone, InsectActionListener insectController){
         if (!zone.isEmpty()){
             return;
         }
         if (Math.random() < probability_appearance_insect){
-            Insect insect = new Fly();
-            zone.putArthropod(insect);
+            Fly fly = new Fly(insectController, zone);
         }
     }
 
@@ -44,6 +56,7 @@ public class Fly extends Insect{
         }
         if (Math.random() < probability_disappearance_insect){
             this.zone().extractArthropod();
+            disappear();
         }
     }
 }

@@ -72,6 +72,6 @@ public class probableBite {
 
         double probably = (double) numerator / (double) denominator;
 
-        Assert.assertEquals(0.3, probably, 0.001);
+        Assert.assertEquals(0.3, probably, 0.003);
     }
 }

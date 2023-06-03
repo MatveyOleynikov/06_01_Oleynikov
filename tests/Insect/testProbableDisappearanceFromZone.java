@@ -12,7 +12,6 @@ import static org.junit.Assert.assertThrows;
 public class testProbableDisappearanceFromZone {
     @Test
     public void insectWithoutZone(){
-        Zone zone = new Zone(1, 1);
         Insect insect = new Insect();
 
         String expMessage = "Насекомое не имеет зоны";

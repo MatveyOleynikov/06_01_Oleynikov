@@ -109,4 +109,19 @@ public class Direction {
 
         return directions;
     }
+
+    /**
+     * Получить все направления
+     * @return список направлений
+     */
+    public static ArrayList<Direction> getAllDirections(){
+        ArrayList<Direction> directions = new ArrayList<Direction>();
+
+        directions.add(Direction.north());
+        directions.add(Direction.east());
+        directions.add(Direction.south());
+        directions.add(Direction.west());
+
+        return directions;
+    }
 }

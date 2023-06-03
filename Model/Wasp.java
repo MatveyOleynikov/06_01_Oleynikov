@@ -1,9 +1,26 @@
 package Model;
 
+import event.InsectActionEvent;
+import event.InsectActionListener;
+
 /**
  * Оса
  */
 public class Wasp extends Insect{
+    /**
+     * конструктор с контроллером
+     * @param insectController контроллер
+     */
+    public Wasp(InsectActionListener insectController, Zone zone){
+        this.insectController = insectController;
+        zone.putArthropod(this);
+        appear();
+        _size = 20;
+    }
+
+    /**
+     * конструктор без контроллера
+     */
     public Wasp(){
         _size = 20;
     }
@@ -32,13 +49,12 @@ public class Wasp extends Insect{
      * Вероятное появление осы в зоне
      * @param zone зона
      */
-    public static void probableAppearanceInZone(Zone zone){
+    public static void probableAppearanceInZone(Zone zone, InsectActionListener insectController){
         if (!zone.isEmpty()){
             return;
         }
         if (Math.random() < probability_appearance_insect){
-            Insect insect = new Wasp();
-            zone.putArthropod(insect);
+            Wasp wasp = new Wasp(insectController, zone);
         }
     }
 
@@ -51,6 +67,7 @@ public class Wasp extends Insect{
         }
         if (Math.random() < probability_disappearance_insect){
             this.zone().extractArthropod();
+            disappear();
         }
     }
 

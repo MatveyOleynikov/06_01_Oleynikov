@@ -39,8 +39,8 @@ public class ZoneWidget extends JPanel {
         }
         this.arthropodWidget = arthropodWidget;
         add(arthropodWidget);
-        revalidate();
         repaint();
+        revalidate();
     }
 
     /**
@@ -52,6 +52,7 @@ public class ZoneWidget extends JPanel {
         }
         arthropodWidget = null;
         repaint();
+        revalidate();
     }
 
     /**

@@ -101,17 +101,10 @@ public class Nature{
             for (int col = 0; col < _spiderWeb.width(); ++col){
                 if (_spiderWeb.zone(row, col).isEmpty()){
                     Zone zn = _spiderWeb.zone(row, col);
-                    Wasp.probableAppearanceInZone(zn);
-                    Grasshopper.probableAppearanceInZone(zn, spiderWeb());
-                    Fly.probableAppearanceInZone(zn);
-                    Mosquito.probableAppearanceInZone(zn);
-
-                    if (!zn.isEmpty()){
-                        if (insectController != null) {
-                            InsectActionEvent event = new InsectActionEvent(insectController, (Insect) zn.getArthropod(), zn);
-                            insectController.insectAppearance(event);
-                        }
-                    }
+                    Wasp.probableAppearanceInZone(zn, insectController);
+                    Grasshopper.probableAppearanceInZone(zn, spiderWeb(), insectController);
+                    Fly.probableAppearanceInZone(zn, insectController);
+                    Mosquito.probableAppearanceInZone(zn, insectController);
                 }
             }
         }
@@ -127,13 +120,6 @@ public class Nature{
                     Zone zn = _spiderWeb.zone(row, col);
                     Insect insect = (Insect) zn.getArthropod();
                     insect.probableDisappearance();
-
-                    if (zn.isEmpty()){
-                        if (insectController != null) {
-                            InsectActionEvent event = new InsectActionEvent(insectController, insect, zn);
-                            insectController.insectDisappearance(event);
-                        }
-                    }
                 }
             }
         }

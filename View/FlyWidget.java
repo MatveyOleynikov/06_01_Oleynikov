@@ -1,5 +1,6 @@
 package View;
 
+import Model.Fly;
 import Model.Insect;
 
 import javax.imageio.ImageIO;
@@ -8,21 +9,13 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-/**
- * Виджет насекомого {@link Insect}.
- */
-public class InsectWidget extends ArthropodWidget{
-    /**
-     * насекомое
-     */
-    private final Insect insect;
-
+public class FlyWidget extends InsectWidget{
     /**
      * Конструктор
-     * @param insect насекомое
+     * @param fly муха
      */
-    public InsectWidget(Insect insect){
-        this.insect = insect;
+    public FlyWidget(Fly fly) {
+        super(fly);
     }
 
     /**
@@ -30,7 +23,7 @@ public class InsectWidget extends ArthropodWidget{
      * @return файл
      */
     private File getImageFile() {
-        File file = new File(ImageUtils.IMAGE_PATH + "insect.png");
+        File file = new File(ImageUtils.IMAGE_PATH + "fly.png");
         return file;
     }
 
@@ -48,15 +41,6 @@ public class InsectWidget extends ArthropodWidget{
             e.printStackTrace();
         }
         return image;
-    }
-
-    /**
-     * Получить размеры виджета
-     * @return размеры виджета
-     */
-    @Override
-    protected Dimension getDimension() {
-        return new Dimension(110, 110);
     }
 
     /**

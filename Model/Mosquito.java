@@ -1,9 +1,26 @@
 package Model;
 
+import event.InsectActionEvent;
+import event.InsectActionListener;
+
 /**
  * Комар
  */
 public class Mosquito extends Insect{
+    /**
+     * Конструктор с контроллером
+     * @param insectController контроллер
+     */
+    public Mosquito(InsectActionListener insectController, Zone zone){
+        this.insectController = insectController;
+        zone.putArthropod(this);
+        appear();
+        _size = 2;
+    }
+
+    /**
+     * Конструктор без контроллера
+     */
     public Mosquito(){
         _size = 2;
     }
@@ -22,13 +39,12 @@ public class Mosquito extends Insect{
      * Вероятное появление комара в зоне
      * @param zone зона
      */
-    public static void probableAppearanceInZone(Zone zone){
+    public static void probableAppearanceInZone(Zone zone, InsectActionListener insectController){
         if (!zone.isEmpty()){
             return;
         }
         if (Math.random() < probability_appearance_insect){
-            Insect insect = new Mosquito();
-            zone.putArthropod(insect);
+            Mosquito mosquito = new Mosquito(insectController, zone);
         }
     }
 
@@ -41,6 +57,7 @@ public class Mosquito extends Insect{
         }
         if (Math.random() < probability_disappearance_insect){
             this.zone().extractArthropod();
+            disappear();
         }
     }
 }

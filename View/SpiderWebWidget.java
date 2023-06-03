@@ -23,6 +23,15 @@ public class SpiderWebWidget extends JPanel {
     private final WidgetFactory widgetFactory;
 
     /**
+     * Виджет шагов
+     */
+    private final StepsWidget stepsWidget;
+
+    public StepsWidget getStepsWidget(){
+        return stepsWidget;
+    }
+
+    /**
      * Конструктор
      * @param nature природа
      * @param spiderWeb паутина
@@ -34,6 +43,8 @@ public class SpiderWebWidget extends JPanel {
         this.spiderWeb = spiderWeb;
         this.widgetFactory = widgetFactory;
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        stepsWidget = new StepsWidget();
+        add(stepsWidget);
         fillField();
     }
 
@@ -87,7 +98,9 @@ public class SpiderWebWidget extends JPanel {
         @Override
         public void insectDisappearance(InsectActionEvent event) {
             ZoneWidget zoneWidget = widgetFactory.getZones().get(event.getZone());
-            zoneWidget.removeArthropodWidget();
+            if (zoneWidget != null) {
+                zoneWidget.removeArthropodWidget();
+            }
         }
     }
 
@@ -113,10 +126,6 @@ public class SpiderWebWidget extends JPanel {
          */
         @Override
         public void SpiderDied(SpiderActionEvent event) {
-            if (!(event.getSpider() instanceof SmartSpider)){
-                System. exit(0);
-            }
-            Zone zn = event.getZone();
             ZoneWidget zone = widgetFactory.getZones().get(event.getZone());
             zone.removeArthropodWidget();
         }
