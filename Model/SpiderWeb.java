@@ -171,4 +171,27 @@ public class SpiderWeb{
 
         return null;
     }
+
+    public ArrayList<Arthropod> getArthropodsAroundZone(Zone zone){
+        ArrayList<Arthropod> result = new ArrayList<Arthropod>();
+        for (int deltaRow = -1; deltaRow <= 1; ++deltaRow){
+            for (int deltaCol = -1; deltaCol <= 1; ++deltaCol){
+                if (deltaRow == 0 && deltaCol == 0){
+                    continue;
+                }
+
+                Zone current_zone = zone(zone.row() + deltaRow, zone.col() + deltaCol);
+                if (current_zone == null){
+                    continue;
+                }
+
+                Arthropod arthropod = current_zone.getArthropod();
+                if (arthropod != null){
+                    result.add(arthropod);
+                }
+            }
+        }
+
+        return result;
+    }
 }

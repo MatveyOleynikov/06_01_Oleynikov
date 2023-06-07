@@ -104,7 +104,7 @@ public class Nature{
                     Wasp.probableAppearanceInZone(zn, insectController);
                     Grasshopper.probableAppearanceInZone(zn, spiderWeb(), insectController);
                     Fly.probableAppearanceInZone(zn, insectController);
-                    Mosquito.probableAppearanceInZone(zn, insectController);
+                    Mosquito.probableAppearanceInZone(zn, spiderWeb(), insectController);
                 }
             }
         }
@@ -116,7 +116,10 @@ public class Nature{
     public void insectsEmergeFromSpiderWeb(){
         for (int row = 0; row < _spiderWeb.height(); ++row){
             for (int col = 0; col < _spiderWeb.width(); ++col){
-                if (_spiderWeb.zone(row, col).getArthropod() instanceof Insect){
+                Arthropod arthropod = _spiderWeb.zone(row, col).getArthropod();
+                if (arthropod instanceof Mosquito){
+                    ((Mosquito) arthropod).probableDisappearance(spiderWeb());
+                }   else if (arthropod instanceof Insect){
                     Zone zn = _spiderWeb.zone(row, col);
                     Insect insect = (Insect) zn.getArthropod();
                     insect.probableDisappearance();
